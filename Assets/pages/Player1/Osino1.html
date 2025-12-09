@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ficha RPG — Lost in Abyss </title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../Player1/OsinoStyle.css">
+</head>
+<body>
+<button class="btn-clean" onclick="limparFicha()">Limpar Ficha</button>
+<main class="card" role="application" aria-label="Ficha de RPG">
+  <div class="grid">
+    <!-- LEFT COLUMN -->
+    <aside class="panel left" aria-label="Coluna esquerda">
+      <div class="TopArea" style="margin-top: 2px;">
+        <input id="name" class="name-field" placeholder="Nome" value="???" aria-label="Nome do personagem" />
+      </div>
+      <div class="subinfo" style="margin-top:8px;">
+        <input id="idade" class="small-input" placeholder="Idade" aria-label="Idade" />
+        <input id="corOlhos" class="small-input" placeholder="Cor dos olhos" value="Caramelo" aria-label="Cor dos olhos" />
+      </div>
+
+      <!-- Vitals (PV / PS / TENSÃO) -->
+      <div class="vitals" style="margin-top:16px;">
+        <div class="vbox" aria-label="PV">
+          <div class="muted">PV</div>
+          <div class="big-num">
+            <input id="pv" type="number" value="16" min="0" aria-label="Pontos de Vida atuais" />
+          </div>
+          <div class="progress-wrap">
+            <div class="bar-bg"><div id="pvFill" class="bar-fill" style="background:linear-gradient(90deg,#ffb86b,#ff6b6b)"></div></div>
+            <div class="muted" style="margin-top:6px; font-size:12px;">Max = HP (calculado)</div>
+          </div>
+        </div> 
+
+        <div class="vbox" aria-label="PS">
+          <div class="muted">PS</div>
+          <div class="big-num">
+            <input id="ps" type="number" value="5" min="0" aria-label="Pontos de sanidade atuais" />
+          </div>
+          <div class="progress-wrap">
+            <div class="bar-bg"><div id="psFill" class="bar-fill" style="background:linear-gradient(90deg,#3dd3a6,#00b0ff)"></div></div>
+            <div class="muted" style="margin-top:6px; font-size:12px;">Max PS = 50</div>
+          </div>
+        </div>
+
+        <div class="vbox" aria-label="Tensão" style="grid-column: 1;">
+          <div class="muted">Tensão</div>
+          <div class="big-num">
+            <input id="tensao" type="number" value="0" min="0" aria-label="Tensão atual" />
+          </div>
+          <div class="progress-wrap">
+            <div class="bar-bg"><div id="tFill" class="bar-fill" style="background: linear-gradient(90deg, #040606, #470101);"></div></div>
+            <div id="tLabel" class="muted" style="margin-top:6px; font-size:12px;">0 / 10</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attributes larger -->
+      <div class="attrs">
+        <h3 class="muted" style="margin-bottom:10px; font-family:var(--title); font-size: 15px;">ATRIBUTOS</h3>
+        <div class="attr"><div class="name">Potência</div><input id="potencia" type="number" value="3" /></div>
+        <div class="attr"><div class="name">Astúcia</div><input id="astucia" type="number" value="0" /></div>
+        <div class="attr"><div class="name">Essência</div><input id="essencia" type="number" value="2" min="0" max="6" /></div>
+        <div class="attr"><div class="name">Mente</div><input id="mente" type="number" value="0" /></div>
+        <div class="attr"><div class="name">Ímpeto</div><input id="impeto" type="number" value="2" min="0" /></div>
+
+        <div class="calc-info">
+          HP inicial: <strong id="hpCalc">13</strong> &nbsp; (10 + IMP * 3) <br>
+           <strong id="ptCalc">22</strong>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER -->
+    <section class="panel center" aria-label="Centro">
+      <div class="portrait" aria-hidden="false">
+        <!-- maldições centered above portrait -->
+        <div class="curses-top" role="status" aria-live="polite">
+          <div class="head">MALDIÇÕES & CONDIÇÕES</div>
+          <ul class="head" id="cursesList" contenteditable="true"></ul>
+        </div>
+
+        <div class="portrait">
+          <img id="statusPV" src="../../Images/Sprites/SpritesPlayer1/img1.png" alt="Retrato do personagem">
+        </div>
+      </div>
+
+      <div class="inventory-panel" aria-label="Inventário (scroll)">
+        <div class="inv-list" id="invList">
+          <div class="inv-slot" id="inv1"><input class="inv-input" data-index="0" value="Faca pequena" /></div>
+          <div class="inv-slot" id="inv2"><input class="inv-input" data-index="1" value="Corda" /></div>
+          <div class="inv-slot" id="inv3"><input class="inv-input" data-index="2" value="Pinga" /></div>
+          <div class="inv-slot" id="inv4"><input class="inv-input" data-index="3" value="Pergaminho amassado" /></div>
+        </div>
+
+        <div style="flex:0 0 180px; display:flex; align-items:flex-end; justify-content:flex-end;">
+          <div class="special-box" aria-label="Item especial">
+            <div class="img">Ilustração do Item</div>
+            <input id="specialItem" placeholder="Item Especial" value="Lâmina rúnica" aria-label="Nome do item especial" />
+          </div>
+        </div>
+      </div>
+
+      <div style="width:92%; text-align:center; margin-top:6px; color:var(--muted); font-size:12px;">Ficha - Lost In Abyss</div>
+    </section>
+    <!---</div>--->
+
+    <!-- RIGHT -->
+    <aside class="panel right" aria-label="Coluna direita">
+
+    <!-- ABAS -->
+    <div class="tabs">
+      <button class="tab active" data-tab="tab-geral">Geral</button>
+      <button class="tab" data-tab="tab-habilidades">Habilidades</button>
+      <button class="tab" data-tab="tab-habilidades"><span class="lock">🔒</span></button>
+    </div>
+
+    <!-- CONTEÚDO DA ABA GERAL -->
+    <div class="tab-content active" id="tab-geral">
+
+  <div class="section">
+    <h3 class="muted" style="font-family:var(--title); margin-bottom:10px; font-size:20px;">STATUS GERAIS</h3>
+
+  <div class="status-wrap">
+    <div class="SedeFome-wrap">Sede</div>
+    <input id="sede" type="number" value="5" min="0" max="10" />
+  </div>
+
+  <div class="status-wrap">
+    <div class="SedeFome-wrap">Fome</div>
+    <input id="fome" type="number" value="5" min="0" max="10" />
+  </div>
+  </div>
+
+  <div class="section" style="margin-top:18px;">
+    <h3 class="muted" style="font-family:var(--title)">HUMANIDADE & BUFFS</h3>
+
+    <div class="status-wrap">
+      <div class="SedeFome-wrap">Humanidade</div>
+      <input id="humanidade" type="number" value="7" min="0" />
+    </div>
+  </div>
+
+      <div style="margin-top:8px;">
+        <div class="muted">Adicionar Buff</div>
+          <div style="display:flex; gap:8px; margin-top:6px;">
+            <input id="buffText" class="buffText" placeholder="Ex: Tenacidade (+2 em Ação)" style="flex:1; background:transparent; border:1px solid rgba(255,255,255,0.03); padding:8px; border-radius:6px;" />
+            <button id="addBuff" class="open-btn" aria-label="Adicionar buff">+</button>
+          </div>
+      </div>
+
+      <div id="buffs" class="buffs" style="margin-top:8px;"> 
+      </div>
+   
+    <div class="section">
+      <h3 class="muted" style="font-family:var(--title)">//ASPECTOS//</h3>
+      <div class="aspect-block" style="margin-top:8px;">
+        <strong>Ação</strong>
+        <div class="aspect-row"><div>Combater</div><select data-group="acao" data-i="0"></select></div>
+        <div class="aspect-row"><div>Absorver</div><select data-group="acao" data-i="1"></select></div>
+        <div class="aspect-row"><div>Manobrar</div><select data-group="acao" data-i="2"></select></div>
+        <div class="aspect-row"><div>Movimentar/correr</div><select data-group="acao" data-i="3"></select></div>
+      </div>
+
+      <div class="aspect-block" style="margin-top:10px;">
+        <strong>Controle / Razão</strong>
+        <div class="aspect-row"><div>Investigar</div><select data-group="razao" data-i="0"></select></div>
+        <div class="aspect-row"><div>Conhecer/aprender</div><select data-group="razao" data-i="1"></select></div>
+        <div class="aspect-row"><div>Socializar</div><select data-group="razao" data-i="2"></select></div>
+        <div class="aspect-row"><div>Criatividade(criar)</div><select data-group="razao" data-i="3"></select></div>
+      </div>
+
+      <div class="aspect-block" style="margin-top:10px;">
+        <strong>Instinto</strong>
+        <div class="aspect-row"><div>Perceber</div><select data-group="instinto" data-i="0"></select></div>
+        <div class="aspect-row"><div>Resistir</div><select data-group="instinto" data-i="1"></select></div>
+        <div class="aspect-row"><div>Intuir</div><select data-group="instinto" data-i="2"></select></div>
+        <div class="aspect-row"><div>Esquivar</div><select data-group="instinto" data-i="3"></select></div>
+      </div>
+    </div>
+  </div>
+ <!-- CONTEÚDO DA ABA HABILIDADES -->
+  <div class="tab-content" id="tab-habilidades">
+    <strong class="subtext">Escreva as habilidades</strong>
+    <div class="free-write" id="habText" contenteditable="true"></div>
+  </div>
+  </aside>
+  </div>
+    </div>
+ 
+ 
+  <div style="position:absolute; left:0; right:0; bottom:8px; text-align:center; font-size:12px; color:rgba(255,255,255,0.04);">Lost in Abyss — Ficha interativa (layout atualizado)</div>
+</main>
+  <script src="../OsinoScript.js"></script>
+</body>
+</html>

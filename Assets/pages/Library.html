@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de Fichas</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: #0c0c0c;
+        font-family: "Cinzel", serif;
+        color: #eee;
+        display: flex;
+        justify-content: center;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1000px;
+        margin-top: 60px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        color: #c4c4c4;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.25s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .card:hover {
+        border-color: #444;
+        transform: translateY(-4px);
+        background: #151515;
+    }
+
+    /* POPUP */
+    #senhaPopup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        backdrop-filter: blur(4px);
+        background: rgba(0,0,0,0.65);
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .popup-box {
+        background: #111;
+        padding: 30px;
+        border-radius: 10px;
+        border: 1px solid #333;
+        text-align: center;
+        width: 300px;
+    }
+
+    input {
+        width: 120px;
+        padding: 10px;
+        text-align: center;
+        font-size: 1.2rem;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        margin-bottom: 15px;
+        background: #222;
+        color: #eee;
+    }
+
+    button {
+        background: #222;
+        border: 1px solid #444;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #ccc;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #333;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Biblioteca de Fichas</h1>
+
+    <div class="grid">
+
+        <div class="card" onclick="pedirSenha('ficha1')">
+            <h2>Ficha: O sino</h2>
+            <small>?????</small>
+        </div>
+
+        <div class="card" onclick="pedirSenha('ficha2')">
+            <h2>Ficha: O miro</h2>
+            <small>?????</small>
+        </div>
+
+        <div class="card" onclick="pedirSenha('ficha3')">
+            <h2>Ficha: O sino3</h2>
+            <small>?????</small>
+        </div>
+
+    </div>
+</div>
+
+<!-- POPUP -->
+<div id="senhaPopup">
+    <div class="popup-box">
+        <h2>Digite a senha</h2>
+        <input type="password" id="senhaInput">
+        <br>
+        <button onclick="confirmarSenha()">Entrar</button>
+        <button onclick="fecharPopup()">Cancelar</button>
+
+        <p id="erro" style="color: red; font-size: 0.9rem; display:none;">Senha incorreta.</p>
+    </div>
+</div>
+
+<script src="senhas.js"></script>
+
+</body>
+</html>

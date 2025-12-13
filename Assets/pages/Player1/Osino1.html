@@ -15,9 +15,15 @@
   <div class="grid">
     <!-- LEFT COLUMN -->
     <aside class="panel left" aria-label="Coluna esquerda">
-      <div class="TopArea" style="margin-top: 2px;">
-        <input id="name" class="name-field" placeholder="Nome" value="???" aria-label="Nome do personagem" />
+      <div class="TopArea name-row">
+        <input id="name" class="name-field" placeholder="Nome"
+        value="???" aria-label="Nome do personagem"
+        />
+        <input id="Nível" class="Level-box" placeholder="Nível" 
+        aria-label="Nível do personagem"
+        />
       </div>
+
       <div class="subinfo" style="margin-top:8px;">
         <input id="idade" class="small-input" placeholder="Idade" aria-label="Idade" />
         <input id="corOlhos" class="small-input" placeholder="Cor dos olhos" value="Caramelo" aria-label="Cor dos olhos" />
@@ -31,8 +37,15 @@
             <input id="pv" type="number" value="16" min="0" aria-label="Pontos de Vida atuais" />
           </div>
           <div class="progress-wrap">
-            <div class="bar-bg"><div id="pvFill" class="bar-fill" style="background:linear-gradient(90deg,#ffb86b,#ff6b6b)"></div></div>
-            <div class="muted" style="margin-top:6px; font-size:12px;">Max = HP (calculado)</div>
+            <div class="bar-bg">
+              <div id="pvFill" class="bar-fill"
+                style="background:linear-gradient(90deg,#ffb86b,#ff6b6b)">
+              </div>
+            </div>
+
+            <div id="pvLabel" class="muted" style="margin-top:6px; font-size:12px;">
+              16 / 16
+            </div>
           </div>
         </div> 
 
@@ -42,8 +55,15 @@
             <input id="ps" type="number" value="5" min="0" aria-label="Pontos de sanidade atuais" />
           </div>
           <div class="progress-wrap">
-            <div class="bar-bg"><div id="psFill" class="bar-fill" style="background:linear-gradient(90deg,#3dd3a6,#00b0ff)"></div></div>
-            <div class="muted" style="margin-top:6px; font-size:12px;">Max PS = 50</div>
+            <div class="bar-bg">
+              <div id="psFill" class="bar-fill"
+                style="background:linear-gradient(90deg,#3dd3a6,#00b0ff)">
+              </div>
+            </div>
+
+            <div id="psLabel" class="muted" style="margin-top:6px; font-size:12px;">
+              5 / 50
+            </div>
           </div>
         </div>
 
@@ -116,7 +136,7 @@
     <div class="tabs">
       <button class="tab active" data-tab="tab-geral">Geral</button>
       <button class="tab" data-tab="tab-habilidades">Habilidades</button>
-      <button class="tab" data-tab="tab-habilidades"><span class="lock">🔒</span></button>
+      <button class="tab Lock" data-tab="tab-Trancada"><span class="lock">??</span></button>
     </div>
 
     <!-- CONTEÚDO DA ABA GERAL -->
@@ -183,14 +203,16 @@
       </div>
     </div>
   </div>
- <!-- CONTEÚDO DA ABA HABILIDADES -->
+
+  <!-- CONTEÚDO DA ABA HABILIDADES -->
   <div class="tab-content" id="tab-habilidades">
     <strong class="subtext">Escreva as habilidades</strong>
     <div class="free-write" id="habText" contenteditable="true"></div>
   </div>
+  </div>
   </aside>
   </div>
-    </div>
+  </div>
  
  
   <div style="position:absolute; left:0; right:0; bottom:8px; text-align:center; font-size:12px; color:rgba(255,255,255,0.04);">Lost in Abyss — Ficha interativa (layout atualizado)</div>

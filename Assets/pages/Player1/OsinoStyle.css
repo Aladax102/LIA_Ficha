@@ -55,6 +55,28 @@
   .panel.left::-webkit-scrollbar-track{background: transparent;}
 
   .left .label-row{display:flex; gap:10px; align-items:center; margin-bottom:6px;}
+  .name-row{
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+}
+
+.Level-box{
+  font-family:var(--title);
+  font-size:25px;           /* menor que o nome */
+  color:#f2fbff;
+  background:transparent;
+  border:none;
+  padding:2px 0;
+  width:64px;               /* quadrado compacto */
+  text-align:center;
+}
+
+.Level-box::placeholder{
+  color:var(--muted);
+  font-size:13px;
+}
+  
   .left .small-input{background:transparent;border:none;border-bottom:1px dashed rgba(255,255,255,0.04); color:inherit; padding:6px 4px; font-family:var(--mono); font-size:14px; width:100%;}
   .left .name-field{font-family:var(--title); font-size:36px; color:#f2fbff; background:transparent; border:none; padding:2px 0; width:100%;}
   .left .subinfo{display:flex; gap:12px; margin-top:8px;}
@@ -132,7 +154,7 @@
 
   box-shadow: 0 2px 4px rgba(0,0,0,0.23);}
   
-  .tabs .tab {
+  .tabs .tab{
     appearance: none;
     background: linear-gradient(#1e2429, rgba(255,255,255,0.03));
     border: 0px solid rgba(255,255,255,0.1);

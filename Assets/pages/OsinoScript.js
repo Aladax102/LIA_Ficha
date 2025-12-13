@@ -214,17 +214,29 @@ function updatePVBar(){
   const hp = toInt(hpEl.textContent || 10);
   let pv = clamp(toInt(pvEl.value), 0, hp);
   pvEl.value = pv;
+
   const pct = hp === 0 ? 0 : Math.round((pv / hp) * 100);
   pvFill.style.width = pct + '%';
-  // alteração de cor se estiver baixo
-  pvFill.style.boxShadow = pv / hp < 0.3 ? '0 0 8px rgba(200,60,60,0.45)' : '';
+
+  // label 16 / 16
+  pvLabel.textContent = pv + ' / ' + hp;
+
+  // brilho quando baixo
+  pvFill.style.boxShadow =
+    hp > 0 && pv / hp < 0.3
+      ? '0 0 8px rgba(200,60,60,0.45)'
+      : '';
 }
 function updatePSBar(){
-  const maxPS = 50; // fixed
+  const maxPS = 50;
   let ps = clamp(toInt(psEl.value), 0, maxPS);
   psEl.value = ps;
+
   const pct = Math.round((ps / maxPS) * 100);
   psFill.style.width = pct + '%';
+
+  // label 5 / 50
+  psLabel.textContent = ps + ' / ' + maxPS;
 }
 function updateTension(){
   const pt = toInt(ptEl.textContent || 10);

@@ -42,7 +42,7 @@ function carregarFicha() {
   const dadosSalvos = localStorage.getItem("fichaRPG");
 
   if (!dadosSalvos) {
-    carregandoFicha = false; // 🔓 libera autosave mesmo sem ficha
+    carregandoFicha = false;
     return;
   }
 
@@ -124,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     buttons.forEach(btn => {
     btn.addEventListener("click", (e) => {
 
-    // 🔒 se a aba estiver trancada
     if (btn.classList.contains("Lock")) {
       e.preventDefault();
       pedirSenhaAba();

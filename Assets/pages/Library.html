@@ -6,6 +6,20 @@
 <title>Biblioteca de Fichas</title>
 
 <style>
+    @font-face {
+        font-family: "TituloCustom";
+        src: url("../Fonts/diagoth.ttf") format("opentype");
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: "TextoCustom";
+        src: url("../Fonts/Ghost\ theory\ 1.ttf") format("truetype");
+        font-weight: normal;
+    }
+
+
     body {
         margin: 0;
         padding: 0;
@@ -31,12 +45,37 @@
         border-radius: 10px;
         backdrop-filter: blur(10px);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
+        position: relative;   /* 👈 obrigatório */
+        overflow: hidden;     /* 👈 respeita bordas */
+    }
+
+    .fichas-container::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.85),  /* esquerda mais escura */
+            rgba(0, 0, 0, 0.0)    /* direita transparente */
+        );
+
+        pointer-events: none;
+    }
+
+    .fichas-container h1,
+    .fichas-container .grid {
+        position: relative;
+        z-index: 1;
     }
 
     h1 {
+        font-family: "TituloCustom", serif;
         text-align: center;
         font-size: 2rem;
         margin-bottom: 40px;
@@ -51,23 +90,55 @@
     }
 
     .card {
-        background: #111;
-        border: 1px solid #222;
-        border-radius: 8px;
-        padding: 20px;
+        background-size: cover;
+        background-position: center;
+        border: none;
+        height: 120px;        /* ajuste ao gosto */
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+
+        border-radius: 14px;   /* ajuste o valor */
+        overflow: hidden;      /* MUITO IMPORTANTE */
+    }
+
+    .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0.65),   /* esquerda mais escura */
+            rgba(0, 0, 0, 0)     /* direita transparente */
+        );
+
+        pointer-events: none;
+    }
+
+    .card:hover::after {
+        opacity: 0.2;
+    }
+
+    .card h2 {
+        font-family: "TituloCustom", serif;
+        font-size: 0.9rem;
+    }
+
+    .card small {
+        font-family: "TextoCustom", serif;
         text-align: center;
-        cursor: pointer;
-        transition: 0.25s;
-        text-decoration: none;
-        color: inherit;
+        font-size: 2rem;
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        color: #c4c4c4;
     }
 
-    .card:hover {
-        border-color: #444;
-        transform: translateY(-4px);
-        background: #151515;
+    .card h2,
+    .card small {
+        position: relative;
+        z-index: 1;
     }
-
     /* Parallax à direita */
     .ficha-detalhes {
         width: 75%;
@@ -174,26 +245,27 @@
 
 /* PERSONAGEM */
 .personagem {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-height: 90%;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    opacity: 0;
-}
+    position: fixed;
+    top: 50%;
+    left: 57%;
 
-/* quando tiver ficha selecionada */
-.personagem.ativo {
-    opacity: 1;
+    max-height: 200%;
+    width: auto;
+
+    transform: translate(
+        calc(-50% + var(--px, 0px)),
+        calc(-50% + var(--py, 0px) + 100px)
+    );
+
+    transition: transform 0.05s linear;
+    pointer-events: none;
 }
 
 /* OVERLAY / CHARME */
 .overlay {
-    mix-blend-mode: screen;
     opacity: 0.35;
-    background-size: cover;
-    background-position: center;
 }
+
 
 /* ===== FUMAÇA MELHORADA ===== */
 
@@ -213,45 +285,6 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
-
-/* ===== ANIMAÇÃO DE ENTRADA ===== */
-
-/* estado inicial (fora da tela) */
-.personagem {
-    bottom: 0;
-    left: 50%;
-    max-height: 90%;
-    opacity: 0;
-
-    /* variáveis */
-    --x: 40%;
-    --y: 0px;
-
-    transform: translate(var(--x), var(--y));
-    transition:
-        transform 0.45s cubic-bezier(.2,.8,.2,1),
-        opacity 0.25s ease;
-}
-
-.personagem.ativo {
-    opacity: 1;
-    --x: var(--offset-final, -50%);
-}
-
-/* OVERLAY */
-.overlay {
-    opacity: 0;
-    --x: 20%;
-    transform: translateX(var(--x));
-    transition:
-        transform 0.6s cubic-bezier(.2,.8,.2,1),
-        opacity 0.4s ease;
-}
-
-.overlay.ativo {
-    opacity: 0.35;
-    --x: 0%;
-}
 </style>
 </head>
 
@@ -260,19 +293,18 @@
 <div class="container">
     <div class="fichas-container">
         <h1>Biblioteca de Fichas</h1>
-
         <div class="grid">
-            <div class="card" onclick="pedirSenha('ficha1')">
-                <h2>Ficha: O Sino</h2>
-                <small>?????</small>
+            <div class="card" style="background-image: url('../Images/Tileset/BottonTexture.jpg')" onmouseenter="previewFicha('ficha1')" onclick="pedirSenha('ficha1')">
+                <h2>Ficha:</h2>
+                <small>// O Sino //</small>
             </div>
 
-            <div class="card" onclick="pedirSenha('ficha2')">
-                <h2>Ficha: O Miro</h2>
-                <small>?????</small>
+            <div class="card" style="background-image: url('../Images/Tileset/MiroBotton.jpg')" onmouseenter="previewFicha('ficha2')" onclick="pedirSenha('ficha2')">
+                <h2>Ficha:</h2>
+                <small>// O Miro //</small>
             </div>
 
-            <div class="card" onclick="pedirSenha('ficha3')">
+            <div class="card" onmouseenter="previewFicha('ficha3')" onclick="pedirSenha('ficha3')">
                 <h2>Ficha: O Sino3</h2>
                 <small>?????</small>
             </div>
@@ -281,7 +313,7 @@
 
 <div class="ficha-detalhes" id="fichaDetalhes">
     <div class="layer background" id="backgroundFicha"></div>
-    <img class="layer personagem" id="imagemFicha" alt="Imagem do Personagem">
+    <img class="personagem" id="imagemFicha" alt="Imagem do Personagem">
     <div class="layer overlay" id="detalhesExtras"></div>
 </div>
     </div>
